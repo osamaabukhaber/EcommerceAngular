@@ -1,0 +1,27 @@
+<form #adminForm="ngForm" (ngSubmit)="onSubmit(adminForm)" novalidate>
+  <div class="mb-3 mt-5">
+    <label>Full Name</label>
+    <input name="fullName" class="form-control" [(ngModel)]="user.name" required minlength="5" #fullName="ngModel">
+    <div *ngIf="fullName.touched && fullName.invalid">
+      <div *ngIf="fullName.errors?.['required']" class="alert alert-danger">Full Name is required.</div>
+      <div *ngIf="fullName.errors?.['minlength']" class="alert alert-warning">Min length is 5.</div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>Email</label>
+    <input name="email" class="form-control" [(ngModel)]="user.email" required email #email="ngModel">
+    <div *ngIf="email.touched && email.invalid">
+      <div *ngIf="email.errors?.['required']" class="alert alert-danger">Email is required.</div>
+      <div *ngIf="email.errors?.['email']" class="alert alert-warning">Invalid email format.</div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>Password</label>
+    <input name="password" type="password" class="form-control" [(ngModel)]="user.password" required minlength="6" #password="ngModel">
+    <div *ngIf="password.touched && password.invalid">
+      <div *ngIf="password.errors?.['required']" class="alert alert-danger">Password is required.</div>
+      <div *ngIf="password.errors?.['minlength']" class="alert alert-warning">Min length is 6.</div>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit" [disabled]="adminForm.invalid">Sign Up</button>
+</form>

@@ -1,0 +1,26 @@
+<div class="product container">
+  <div class="row">
+    <div class="">
+      <h3 class="card-title text-success">{{product?.name}}</h3>
+      <h6 class="card-title text-dark">{{product?.price}}</h6>
+      <img [src]="product?.img" alt="">
+      <h6 class="card-title text-dark">{{product?.productDetails}}</h6>
+
+    </div>
+
+  </div>
+
+  <div class="row mt-5">
+
+    <div class="col-md-6">
+      <button class="btn btn-danger" routerLink="/products" >Back</button>
+    </div>
+
+    <div class="col-md-6">
+      <button class="btn btn-light"(click)="prevFunc()" [disabled]="currentId==allIds[0]"><i class="fa fa-backward" aria-hidden="true"></i></button>
+      <button class="btn btn-light"(click)="nextFunc()" [disabled]="currentId==allIds[allIds.length-1]"><i class="fa fa-forward" aria-hidden="true"></i> </button>
+    </div>
+
+
+
+  </div>

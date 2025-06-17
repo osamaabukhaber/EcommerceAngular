@@ -1,0 +1,79 @@
+<form #regForm="ngForm" (ngSubmit)="onSubmit(regForm)" novalidate>
+  <!-- Full Name -->
+  <div class="mb-3 mt-5">
+    <label>Full Name</label>
+    <input name="fullName" class="form-control"
+           [(ngModel)]="user.fullName"
+           required minlength="5"
+           #fullName="ngModel"
+           [ngClass]="{'is-valid': fullName.valid && fullName.touched, 'is-invalid': fullName.invalid && fullName.touched}">
+    <div *ngIf="fullName.touched && fullName.invalid">
+      <div *ngIf="fullName.errors?.['required']" class="alert alert-danger">Full Name is required.</div>
+      <div *ngIf="fullName.errors?.['minlength']" class="alert alert-warning">Min length is 5.</div>
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div class="mb-3">
+    <label>Email</label>
+    <input name="email" class="form-control"
+           [(ngModel)]="user.email"
+           required email
+           #email="ngModel"
+           [ngClass]="{'is-valid': email.valid && email.touched, 'is-invalid': email.invalid && email.touched}">
+    <div *ngIf="email.touched && email.invalid">
+      <div *ngIf="email.errors?.['required']" class="alert alert-danger">Email is required.</div>
+      <div *ngIf="email.errors?.['email']" class="alert alert-warning">Invalid email format.</div>
+    </div>
+  </div>
+
+  <!-- First Mobile Number -->
+  <div class="mb-3">
+    <label>Mobile 1</label>
+    <div class="input-group">
+      <input name="mobile0" class="form-control"
+             [(ngModel)]="user.mobiles[0]"
+             required minlength="11" maxlength="11"
+             #mob0="ngModel"
+             [ngClass]="{'is-valid': mob0.valid && mob0.touched, 'is-invalid': mob0.invalid && mob0.touched}">
+    </div>
+    <div *ngIf="mob0.touched && mob0.invalid">
+      <div *ngIf="mob0.errors?.['required']" class="alert alert-danger">Mobile is required.</div>
+      <div *ngIf="mob0.errors?.['minlength'] || mob0.errors?.['maxlength']" class="alert alert-warning">Mobile must be 11 digits.</div>
+    </div>
+  </div>
+
+  <!-- Second Mobile Number (Optional) -->
+  <div class="mb-3" *ngIf="user.mobiles.length > 1">
+    <label>Mobile 2</label>
+    <div class="input-group">
+      <input name="mobile1" class="form-control"
+             [(ngModel)]="user.mobiles[1]"
+             minlength="11" maxlength="11"
+             #mob1="ngModel"
+             [ngClass]="{'is-valid': mob1.valid && mob1.touched, 'is-invalid': mob1.invalid && mob1.touched}">
+      <button type="button" class="btn btn-danger" (click)="removeMobile(1)">Remove</button>
+    </div>
+    <div *ngIf="mob1.touched && mob1.invalid">
+      <div *ngIf="mob1.errors?.['minlength'] || mob1.errors?.['maxlength']" class="alert alert-warning">Mobile must be 11 digits.</div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-secondary mb-3" (click)="addMobile()" [disabled]="user.mobiles.length > 1">Add another mobile</button>
+
+  <!-- Password -->
+  <div class="mb-3">
+    <label>Password</label>
+    <input name="password" type="password" class="form-control"
+           [(ngModel)]="user.password"
+           required minlength="6"
+           #password="ngModel"
+           [ngClass]="{'is-valid': password.valid && password.touched, 'is-invalid': password.invalid && password.touched}">
+    <div *ngIf="password.touched && password.invalid">
+      <div *ngIf="password.errors?.['required']" class="alert alert-danger">Password is required.</div>
+      <div *ngIf="password.errors?.['minlength']" class="alert alert-warning">Min length is 6.</div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" [disabled]="regForm.invalid">Register</button>
+</form>

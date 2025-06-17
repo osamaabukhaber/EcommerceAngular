@@ -1,0 +1,11 @@
+.backgroundOfCard{
+    background-color: rgb(0, 243, 49);
+}
+
+.backgroundOfTitle{
+    background-color: rgb(189, 28, 186);
+}
+
+.discount{
+  text-decoration: line-through;
+}

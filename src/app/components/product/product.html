@@ -1,0 +1,208 @@
+<!-- <h1 class="text-center mt-3 "> {{store.name}} </h1>
+<img [src]="store.logo" class="" alt="test img" />
+<div class="OurBranches">
+    @if(store.branches && store.branches.length>0){
+        <h1>OurBranches</h1>
+        <ul>
+            @for(b of store.branches; track b){
+            <li>
+                {{b}}
+            </li>
+            }
+        </ul>
+    }@else {
+      <h1> No Branches</h1>
+    }
+
+</div> -->
+
+<!-- try run -->
+<div class="container">
+
+  <!-- class store -->
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-secondary my-4" (click)="toggle()">
+      {{ toggleImg ? "Hide Images" : "Show Images" }}
+    </button>
+  </div>
+
+  <div class="row align-items-center my-3">
+    <label class="col-md-auto ">Login As</label>
+    <div class=" col-md-6">
+      <input type="text" [(ngModel)]="clientName" placeholder="Enter your name" class="form-control"
+        style="margin: 20px 0; ">
+    </div>
+
+  </div>
+
+  <!-- Search -->
+  <!-- <div class="row align-items-center my-3">
+        <label class="col-md-auto">Search Products </label>
+        <div class="col-md-6">
+            <input type="text" [(ngModel)]="filterByName" placeholder="Search by Product Name" class="form-control">
+        </div>
+
+    </div> -->
+
+  <!-- Total Price -->
+  <h2>Total Order Price{{totalOrderPrice}} </h2>
+
+  <div class="row">
+
+
+    @for (product of productsAfterSearch; track product.id) {
+    <div class="col-md-3 mt-4 col-sm-4">
+
+      <!-- ngClass -->
+      <div class="card" productCard [ngClass]="{'bg-warning': product.quantity===1}">
+        <!-- ngStyle -->
+        <!-- <div class="card" [ngStyle]="{'background-color': product.quantity === 1 ? 'yellow' : (product.quantity > 1 ? 'green' : 'initial')}"> -->
+        @if (!product.isPurchased && toggleImg) {
+        <img class="card-img-top img-fluid" [src]="product.img" alt="Card image cap" />
+        }
+        @else {
+        <p>Thanks for buying {{clientName | uppercase}}</p>
+        }
+
+
+        <div class="card-body">
+          <!-- <h4 class="card-title" [class.text-danger]="product.quantity==0">{{ product.name }}</h4> -->
+          <h4 class="card-title"
+            [ngClass]="{'backgroundOfTitle':product.quantity==0,'text-success':product.quantity>0}">{{ product.name }}
+          </h4>
+          <h6 class="card-title text-secondary">Quantity: {{ product.quantity }}</h6>
+          <!-- <h6 class="card-title text-secondary">Price: {{ product.price | currency }}</h6> -->
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="card-title text-secondary discount"> {{ product.price | currency:"EGP " }}</h6>
+            </div>
+            <div class="col-md-6">
+              <h6 class="card-title text-secondary"> {{ product.price-(product.price*.2) | currency:"EGP " }}</h6>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="addCardBtn col-md-7">
+              <button class="btn btn-dark" [disabled]="product.quantity == 0" (click)="addToCartChild(product)">
+                <i class="fa-solid fa-cart-shopping"></i> Add to cart
+              </button>
+            </div>
+
+            <div class="stockStatus col-md-5">
+              <p [ngClass]="{
+                                'text-danger': product.quantity == 0,
+                                'text-warning': product.quantity == 1 || product.quantity == 2,
+                                'text-success': product.quantity > 2
+                            }">
+                {{ getQuantityStatus(product.quantity) }}
+              </p>
+            </div>
+
+          </div>
+
+          <div class="row d-flex align-items-baseline mt-3 ">
+
+
+            <!-- <button class="btn btn-info" (click)="togglePurchase(product.Id-1)">Buy</button> -->
+            <!-- <button (click)="buyProduct(product )" (click)="totalPrice(product,product.price,qtyValue.value)" class="btn btn-success"
+                                                        [disabled]="product.quantity === 0"> Buy </button> -->
+            <!-- <button (click)="buyProduct(product)"
+                                (click)="totalPrice(product, product.price, +qtyValue.value)"
+                                class="btn btn-success" [disabled]="product.quantity === 0">
+                                Buy
+                            </button> -->
+
+            <div class="col-md-7">
+              <input title="inp" type="number" #qtyValue class="form-control mt-3" value="1" min="1" />
+            </div>
+
+            <div class="col-md-5">
+              <button (click)="buyProduct(product); totalPrice(product, product.price, +qtyValue.value)"
+                class=" btn btn-success" [disabled]="product.quantity === 0"> Buy </button>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="addCardBtn col-md-7">
+              <button class="btn btn-info" [routerLink]="['/products',product.id]">
+                <i class="fa-solid fa-cart-shopping"></i> Show Details
+              </button>
+            </div>
+
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
+
+
+<!--
+
+<div class="container-fluid">
+
+
+
+<div class="row ">
+    @for(product of productList ; track product.Id){
+
+    <div class="col-md-3 mt-4 col-sm-4">
+      <div class="card">
+        @if(toggleImg){
+        <img
+          class="card-img-top img-fluid"
+          [src]="product.img"
+          alt="Card image cap"
+        />
+        }@else {
+        <p>no image</p>
+        }
+
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <h5 class="card-title">quantity : {{product.quantity}}</h5>
+          <h5 class="card-title">price : {{product.price}}</h5>
+
+          <div class="d-flex justify-content-between">
+            <button
+              class="btn btn-primary"
+              [disabled]="product.quantity==0"
+            >
+              <i class="fa-solid fa-cart-shopping"></i>Add to cart
+            </button>
+
+            @switch(product.quantity){ @case (0){
+            <p class="text-danger">out of stock</p>
+
+            } @case(1){
+            <p class="text-warning">last item in stock</p>
+            } @default {
+            <p class="text-success">in stock</p>
+            } }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    }
+  </div>
+</div> -->
+
+
+<!--  my try -->
+
+<!-- <div class="container">
+    <div class="row">
+        @for (product of productList; track product.Id) {
+
+        }
+
+    </div>
+</div> -->

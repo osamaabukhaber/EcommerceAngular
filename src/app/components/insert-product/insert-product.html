@@ -1,0 +1,35 @@
+<div class="container mt-5">
+
+
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label>Name</label>
+    <input formControlName="name" class="form-control" placeholder="Product Name">
+  </div>
+  <div class="mb-3">
+    <label>Price</label>
+    <input formControlName="price" class="form-control" type="number" placeholder="Price">
+  </div>
+  <div class="mb-3">
+    <label>Quantity</label>
+    <input formControlName="quantity" class="form-control" type="number" placeholder="Quantity">
+  </div>
+  <div class="mb-3">
+    <label>Image URL</label>
+    <input formControlName="img" class="form-control" placeholder="Image URL">
+  </div>
+  <div class="mb-3">
+    <label>Category</label>
+    <select formControlName="category" class="form-control" title="Select Category">
+      <option value="" disabled>Select Category</option>
+      <option *ngFor="let cat of categories" [value]="cat.id">{{cat.categoryName}}</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label>Product Details</label>
+    <textarea formControlName="productDetails" class="form-control" placeholder="Product Details"></textarea>
+  </div>
+  <button class="btn btn-primary" type="submit" [disabled]="productForm.invalid">Insert Product</button>
+</form>
+
+</div>

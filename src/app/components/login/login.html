@@ -1,0 +1,14 @@
+<div  class="container mt-5 w-50">
+
+  <form class="" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+
+  <div *ngIf="errorMsg" class="alert alert-danger ">{{ errorMsg }}</div>
+
+  <input name="email" [(ngModel)]="email" required type="email" placeholder="Email" class="form-control mb-3">
+  <input name="password" [(ngModel)]="password" required type="password" placeholder="Password" class="form-control mb-3">
+  <button class="btn btn-primary container" type="submit">Login</button>
+</form>
+
+</div>
+
+
