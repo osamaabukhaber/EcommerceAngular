@@ -7,10 +7,10 @@
            required minlength="5"
            #fullName="ngModel"
            [ngClass]="{'is-valid': fullName.valid && fullName.touched, 'is-invalid': fullName.invalid && fullName.touched}">
-    <div *ngIf="fullName.touched && fullName.invalid">
+    @if (fullName.touched && fullName.invalid) {
       <div *ngIf="fullName.errors?.['required']" class="alert alert-danger">Full Name is required.</div>
       <div *ngIf="fullName.errors?.['minlength']" class="alert alert-warning">Min length is 5.</div>
-    </div>
+    }
   </div>
 
   <!-- Email -->
@@ -21,10 +21,10 @@
            required email
            #email="ngModel"
            [ngClass]="{'is-valid': email.valid && email.touched, 'is-invalid': email.invalid && email.touched}">
-    <div *ngIf="email.touched && email.invalid">
+    @if (email.touched && email.invalid) {
       <div *ngIf="email.errors?.['required']" class="alert alert-danger">Email is required.</div>
       <div *ngIf="email.errors?.['email']" class="alert alert-warning">Invalid email format.</div>
-    </div>
+    }
   </div>
 
   <!-- First Mobile Number -->
@@ -37,10 +37,10 @@
              #mob0="ngModel"
              [ngClass]="{'is-valid': mob0.valid && mob0.touched, 'is-invalid': mob0.invalid && mob0.touched}">
     </div>
-    <div *ngIf="mob0.touched && mob0.invalid">
+    @if (mob0.touched && mob0.invalid) {
       <div *ngIf="mob0.errors?.['required']" class="alert alert-danger">Mobile is required.</div>
       <div *ngIf="mob0.errors?.['minlength'] || mob0.errors?.['maxlength']" class="alert alert-warning">Mobile must be 11 digits.</div>
-    </div>
+    }
   </div>
 
   <!-- Second Mobile Number (Optional) -->
@@ -54,9 +54,9 @@
              [ngClass]="{'is-valid': mob1.valid && mob1.touched, 'is-invalid': mob1.invalid && mob1.touched}">
       <button type="button" class="btn btn-danger" (click)="removeMobile(1)">Remove</button>
     </div>
-    <div *ngIf="mob1.touched && mob1.invalid">
+    @if (mob1.touched && mob1.invalid) {
       <div *ngIf="mob1.errors?.['minlength'] || mob1.errors?.['maxlength']" class="alert alert-warning">Mobile must be 11 digits.</div>
-    </div>
+    }
   </div>
 
   <button type="button" class="btn btn-secondary mb-3" (click)="addMobile()" [disabled]="user.mobiles.length > 1">Add another mobile</button>
@@ -69,10 +69,10 @@
            required minlength="6"
            #password="ngModel"
            [ngClass]="{'is-valid': password.valid && password.touched, 'is-invalid': password.invalid && password.touched}">
-    <div *ngIf="password.touched && password.invalid">
+    @if (password.touched && password.invalid) {
       <div *ngIf="password.errors?.['required']" class="alert alert-danger">Password is required.</div>
       <div *ngIf="password.errors?.['minlength']" class="alert alert-warning">Min length is 6.</div>
-    </div>
+    }
   </div>
 
   <button class="btn btn-primary" [disabled]="regForm.invalid">Register</button>
